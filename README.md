@@ -1,5 +1,5 @@
 # Simple Chess Engine
-A simple brute force meterialistic chess algorithm.
+A simple brute force materialistic chess algorithm.
 
 ## How it Works
 - Uses the python chess library for all board logic and chess function.
