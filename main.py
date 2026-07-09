@@ -8,7 +8,7 @@ board = chess.Board()
 # << YOU PLAY IT >>
 while True:
     playerSide = input("\"w\" or \"b\" ->")
-    if playerSide == "w" or "b":
+    if playerSide == "w" or playerSide == "b":
         break
 
 if playerSide == "b":
