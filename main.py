@@ -12,7 +12,7 @@ while True:
         break
 
 if playerSide == "b":
-    board.push(GreedFish.getMove(board))
+    board.push(GreedFish.getMove(board,4))
 
 while not board.is_game_over():
     print(f"---------------\n\n{board}\n\nLegal Moves: {str(board.legal_moves).split("(")[1].split(")")[0]}\n")
@@ -24,14 +24,14 @@ while not board.is_game_over():
         except:
             playerMove = input("Error! Your Move ->")
     if not board.is_game_over():
-        board.push(GreedFish.getMove(board))
+        board.push(GreedFish.getMove(board,4))
     print("\n---------------")
 
 
 
 # << IT PLAYS ITSELF >>
 # while not board.is_game_over():
-#     board.push(GreedFish.getMove(board))
+#     board.push(GreedFish.getMove(board,3))
 
 
 

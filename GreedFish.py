@@ -31,8 +31,29 @@ def getBoardValue(board):
             boardValue -= pieceValue
     return boardValue
 
-def getMove(boardOG):
-    board = boardOG.copy()
+def minimax(board,depth):
+    if depth == 0 or board.is_game_over():
+        return getBoardValue(board)
+    
+    if board.turn == chess.WHITE:
+        maxEval = -9999
+        for move in board.legal_moves:
+            board.push(move)
+            eval = minimax(board, depth-1)
+            board.pop()
+            maxEval = max(maxEval,eval)
+        return maxEval
+    
+    if board.turn == chess.BLACK:
+        minEval = 9999
+        for move in board.legal_moves:
+            board.push(move)
+            eval = minimax(board, depth-1)
+            board.pop()
+            minEval = min(minEval,eval)
+        return minEval
+
+def getMove(board,targetDepth):
 
     moves = list(board.legal_moves)
 
@@ -40,7 +61,7 @@ def getMove(boardOG):
 
     for move in moves:
         board.push(move)
-        moveValues[move] = getBoardValue(board)
+        moveValues[move] = minimax(board,targetDepth-1)
         board.pop()
 
     if board.turn == chess.WHITE:
