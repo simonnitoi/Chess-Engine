@@ -43,10 +43,11 @@ def findLocation(coord):
 def highlightSquare(square,side):
     coord = findLocation(square)
     size = squareDim*0.1
-    x = coord[1]*squareDim+squareDim/2
     if side == "w":
+        x = coord[1]*squareDim+squareDim/2
         y = coord[0]*squareDim+squareDim/2
     else:
+        x = (7-coord[1])*squareDim+squareDim/2
         y = (7-coord[0])*squareDim+squareDim/2
     canvas.create_oval(x-size,y-size, x+size,y+size, fill="red", outline="",tags="highlights")
 
@@ -59,10 +60,11 @@ def setPosition(board,side):
     map = board.piece_map()
     for square, piece in map.items():
         coord = findLocation(chess.square_name(square))
-        x = coord[1]*squareDim
         if side == "w":
+            x = coord[1]*squareDim
             y = coord[0]*squareDim
         else:
+            x = (7-coord[1])*squareDim
             y = (7-coord[0])*squareDim
         if piece.color == chess.WHITE:
             if piece.piece_type == chess.PAWN:
@@ -106,4 +108,5 @@ def findSquare(x,y,side):
             row +=1
     if side == "b":
         row = 7-row
+        column = 7-column
     return coords[row][column]
