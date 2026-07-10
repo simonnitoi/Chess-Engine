@@ -87,7 +87,7 @@ def play():
         if board.is_game_over():
             printGame(board)
             return
-        board.push(GreedFish.getMove(board,1))
+        board.push(GreedFish.getMove(board,4))
         BoardGUI.setPosition(board,playerSide)
         if board.is_game_over():
             printGame(board)
