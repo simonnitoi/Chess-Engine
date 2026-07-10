@@ -1,6 +1,8 @@
 import chess
 import chess.pgn
 
+from tkinter import simpledialog
+
 import sys
 
 import GreedFish
@@ -18,12 +20,16 @@ def printGame(board):
 
 
 # << YOU PLAY IT >>
+
+BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
+
 while True:
-    playerSide = input("\"w\" or \"b\" ->")
+    playerSide = simpledialog.askstring("Pick a Side","\"w\" or \"b\":",parent=BoardGUI.root)
+    if playerSide == None:
+        sys.exit(0)
     if playerSide == "w" or playerSide == "b":
         break
 
-BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
 BoardGUI.setPosition(board,playerSide)
 
 playerMove = ""
@@ -60,6 +66,14 @@ def handle_click(event):
                 playerMove = chess.Move.from_uci(playerMove)
                 board.push(playerMove)
                 playerTurn = False
+            elif chess.Move.from_uci(playerMove+"q") in board.legal_moves:
+                promo = simpledialog.askstring("Promotion","Promote to (\"q\",\"r\",\"b\",\"n\"):",parent=BoardGUI.root)
+                if not promo or promo not in ["q","r","b","n"]:
+                    pass
+                else:
+                    playerMove = chess.Move.from_uci(playerMove+promo)
+                    board.push(playerMove)
+                    playerTurn = False
             moveOpen = False
             playerMove = ""
 BoardGUI.root.bind("<Button-1>", handle_click)
@@ -67,15 +81,17 @@ BoardGUI.root.bind("<Button-1>", handle_click)
 def play():
     global playerTurn,playerSide
 
-    if board.is_game_over():
-        printGame(board)
-        return
-
     if not playerTurn:
         BoardGUI.setPosition(board,playerSide)
         BoardGUI.root.update()
-        board.push(GreedFish.getMove(board,4))
+        if board.is_game_over():
+            printGame(board)
+            return
+        board.push(GreedFish.getMove(board,1))
         BoardGUI.setPosition(board,playerSide)
+        if board.is_game_over():
+            printGame(board)
+            return
         playerTurn = True
     BoardGUI.root.after(round(50),play)
 
