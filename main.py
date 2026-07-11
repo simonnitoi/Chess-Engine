@@ -10,7 +10,7 @@ import GreedFish
 import BoardGUI
 
 
-board = chess.Board()
+board = chess.Board("r2qk2r/pp1nbppp/4pn2/3p2B1/3P4/2N2N2/PPP2PPP/R2QK2R w KQkq - 0 1")
 
 def printGame(board):
     print(f"---------------\n\n{board}")
@@ -20,7 +20,6 @@ def printGame(board):
 
 
 # << YOU PLAY IT >>
-
 BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
 
 while True:
@@ -87,7 +86,7 @@ def play():
         if board.is_game_over():
             printGame(board)
             return
-        board.push(GreedFish.getMove(board,4))
+        board.push(GreedFish.getMove(board,5))
         BoardGUI.setPosition(board,playerSide)
         if board.is_game_over():
             printGame(board)
@@ -97,14 +96,14 @@ def play():
 
 
 # << IT PLAYS ITSELF >>
-# BoardGUI.setBoard(640)
+# BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
 # BoardGUI.setPosition(board,"w")
 # def play():
 #     if board.is_game_over():
 #         printGame(board)
 #         return
 #     else:
-#         board.push(GreedFish.getMove(board,3))
+#         board.push(GreedFish.getMove(board,5))
 #         BoardGUI.setPosition(board,"w")
 #     BoardGUI.root.after(round(50),play)
 

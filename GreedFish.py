@@ -31,26 +31,36 @@ def getBoardValue(board):
             boardValue -= pieceValue
     return boardValue
 
-def minimax(board,depth):
+def minimax(board,depth,alpha=-9999,beta=9999):
     if depth == 0 or board.is_game_over():
         return getBoardValue(board)
     
     if board.turn == chess.WHITE:
         maxEval = -9999
-        for move in board.legal_moves:
+        moves = list(board.legal_moves)
+        moves.sort(key=lambda move: board.is_capture(move), reverse=True)
+        for move in moves:
             board.push(move)
-            eval = minimax(board, depth-1)
+            eval = minimax(board, depth-1,alpha,beta)
             board.pop()
             maxEval = max(maxEval,eval)
+            alpha = max(alpha,eval)
+            if beta <= alpha:
+                break
         return maxEval
     
     if board.turn == chess.BLACK:
         minEval = 9999
-        for move in board.legal_moves:
+        moves = list(board.legal_moves)
+        moves.sort(key=lambda move: board.is_capture(move), reverse=True)
+        for move in moves:
             board.push(move)
-            eval = minimax(board, depth-1)
+            eval = minimax(board, depth-1,alpha,beta)
             board.pop()
             minEval = min(minEval,eval)
+            beta = min(beta,eval)
+            if beta <= alpha:
+                break
         return minEval
 
 def getMove(board,targetDepth):
