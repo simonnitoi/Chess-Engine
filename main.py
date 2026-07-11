@@ -10,7 +10,7 @@ import GreedFish
 import BoardGUI
 
 
-board = chess.Board("r2qk2r/pp1nbppp/4pn2/3p2B1/3P4/2N2N2/PPP2PPP/R2QK2R w KQkq - 0 1")
+board = chess.Board()
 
 def printGame(board):
     print(f"---------------\n\n{board}")
