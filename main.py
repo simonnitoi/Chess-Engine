@@ -17,11 +17,9 @@ def printGame(board):
     print(str(chess.pgn.Game.from_board(board)))
     print("\n---------------")
 
-
-
-# << YOU PLAY IT >>
 BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
 
+# << YOU PLAY IT >>
 while True:
     playerSide = simpledialog.askstring("Pick a Side","\"w\" or \"b\":",parent=BoardGUI.root)
     if playerSide == None:
@@ -86,7 +84,7 @@ def play():
         if board.is_game_over():
             printGame(board)
             return
-        board.push(GreedFish.getMove(board,5))
+        board.push(GreedFish.getMove(board,5,3))
         BoardGUI.setPosition(board,playerSide)
         if board.is_game_over():
             printGame(board)
@@ -96,14 +94,13 @@ def play():
 
 
 # << IT PLAYS ITSELF >>
-# BoardGUI.setBoard(640) # << KEEP IT DIVISIBLE BY 8 >>
 # BoardGUI.setPosition(board,"w")
 # def play():
 #     if board.is_game_over():
 #         printGame(board)
 #         return
 #     else:
-#         board.push(GreedFish.getMove(board,5))
+#         board.push(GreedFish.getMove(board,5,1))
 #         BoardGUI.setPosition(board,"w")
 #     BoardGUI.root.after(round(50),play)
 
